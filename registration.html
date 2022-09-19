@@ -15,19 +15,24 @@
     <title>registration</title>
 </head>
 <script>
+    const tag = $('#tag').val()
+    // let file = $('#file').val()
+    // let title = $('#title').val()
+    // let main = $('#main').val()
     function registration() {
-        let file = $('#formFile').val()
-        let title = $('#title').val()
-        let main = $('#main').val()
-        let tag = $('#tag').val()
-        $.ajax({
-            type: "POST",
-            url: "/registration",
-            data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file},
-            success: function (response) {
-                console.log(response['msg'])
-            }
-        })
+        if (tag.includes('#') === true) {
+            alert('#포함 o');
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/registration",
+        //     data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file},
+        //     success: function (response) {
+        //         console.log(response['msg'])
+        //     }
+        //  })
+        } else {
+            alert('#를 입력해 주세요');
+        }
     }
 </script>
 <style>
@@ -64,7 +69,9 @@
         align-items: center;
     }
 
-    .flex > span {
+    .flex > span,
+    .flex > label
+    {
         white-space: nowrap;
         margin-right: 10px;
     }
@@ -87,7 +94,7 @@
 
     <div class="mb-3 flex">
         <span>이미지</span>
-        <input class="form-control gray" accept="image/*" type="file" id="formFile">
+        <input id="file" class="form-control gray" accept="image/*" type="file">
     </div>
 
     <div class="form-floating flex">
