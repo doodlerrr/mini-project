@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>membership</title>
+    <script>
+        function register() {
+            let id = $('#id').val()
+            let pw = $('#pw').val()
+            let name = $('#name').val()
+            $.ajax({
+                type: "POST",
+                url: "/membership",
+                data: {'id': id, 'pw': pw, 'name': name},
+                success: function (response) {
+                    alert(response['가입완료!'])
+                }
+            })
+        }
+    </script>
+
+    <style>
+        .sign-up {
+            width: 100%;
+            height: 100px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrap {
+            max-width: 550px;
+            width: 90%;
+
+            margin: 20px auto 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sign-up">
+        <h2>Sign up</h2>
+    </div>
+    <div class="wrap">
+        <span>아이디</span>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="이메일을 입력하세요." aria-label="Username">
+            <span class="input-group-text">@</span>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+        </div>
+        <div class="input-address">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>직접 입력</option>
+                <option value="1">gmail.com</option>
+                <option value="2">naver.com</option>
+                <option value="3">daum.net</option>
+                <option value="4">kakao.com</option>
+            </select>
+        </div>
+        <div>
+            <p>비밀번호<input type="password" class="form-control" id="floatingInput"
+                          placeholder="영문,숫자를 이용하여 총 8자리 이상으로 만들어주세요."></p>
+
+        </div>
+        <div>
+            <p>비밀번호 확인<input type="password" class="form-control" id="floatingInput" placeholder="비밀번호 재입력"></p>
+
+        </div>
+        <div>
+            <p>닉네임 <input type="text" class="form-control" id="floatingInput" placeholder="닉네임"></p>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-dark" type="button" onclick="register()">가입 하기</button>
+        </div>
+    </div>
+</body>
