@@ -14,6 +14,21 @@
 
     <title>registration</title>
 </head>
+<script>
+    function registration() {
+        let title = $('#title').val()
+        let main = $('#main').val()
+        let tag = $('#tag').val()
+        $.ajax({
+            type: "POST",
+            url: "/registration",
+            data: {'title' : title, 'main' : main, 'tag' : tag} ,
+            success: function (response) {
+                console.log(response['msg'])
+            }
+        })
+    }
+</script>
 <style>
     .wrap {
         max-width: 1000px;
@@ -55,14 +70,14 @@
     <div class="mb-3">
         <div class="flex">
             <span>제목</span>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요">
+            <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
         </div>
     </div>
 
     <div class="mb-3">
         <div class="flex">
             <span>태그</span>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="'#'을 포함하여 태그를 입력하세요">
+            <input type="email" class="form-control" id="tag" placeholder="'#'을 포함하여 태그를 입력하세요">
         </div>
     </div>
 
@@ -71,12 +86,12 @@
     </div>
 
     <div class="form-floating flex">
-    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+    <textarea class="form-control" placeholder="Leave a comment here" id="main"
               style="height: 100px"></textarea>
         <label for="floatingTextarea2" class="gray">내용을 입력하세요</label>
     </div>
     <div class="mybtn">
-        <button type="button" class="btn btn-dark">등록하기</button>
+        <button type="button" class="btn btn-dark" onclick="registration()">등록하기</button>
     </div>
 </div>
 </body>

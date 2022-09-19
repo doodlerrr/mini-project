@@ -14,6 +14,21 @@
 
     <title>amend</title>
 </head>
+<script>
+    function amend() {
+        let title = $('#title').val()
+        let main = $('#main').val()
+        let tag = $('#tag').val()
+        $.ajax({
+            type: "POST",
+            url: "/amend",
+            data: {'title' : title, 'main' : main, 'tag' : tag} ,
+            success: function (response) {
+                console.log(response['msg'])
+            }
+        })
+    }
+</script>
 <style>
     .wrap {
         max-width: 1000px;
@@ -76,7 +91,7 @@
         <label for="floatingTextarea2" class="gray">내용을 입력하세요</label>
     </div>
     <div class="mybtn">
-        <button type="button" class="btn btn-dark">수정하기</button>
+        <button type="button" class="btn btn-dark" onclick="amend()">수정하기</button>
     </div>
 </div>
 </body>
