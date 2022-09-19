@@ -15,14 +15,22 @@
     <title>amend</title>
 </head>
 <script>
+    const fileInput = document.getElementById("fileUpload");
+    // 또는 const fileInput = $("#fileUpload").get(0);
+
+    fileInput.onchange = () => {
+        const selectedFile = fileInput.files[0];
+        console.log(selectedFile);
+    };
     function amend() {
+        let file = $('#formFile').val()
         let title = $('#title').val()
         let main = $('#main').val()
         let tag = $('#tag').val()
         $.ajax({
             type: "POST",
             url: "/amend",
-            data: {'title' : title, 'main' : main, 'tag' : tag} ,
+            data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file} ,
             success: function (response) {
                 console.log(response['msg'])
             }
@@ -30,6 +38,9 @@
     }
 </script>
 <style>
+    body {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
     .wrap {
         max-width: 1000px;
         width: 95%;
@@ -70,25 +81,26 @@
     <div class="mb-3">
         <div class="flex">
             <span>제목</span>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요">
+            <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
         </div>
     </div>
 
     <div class="mb-3">
         <div class="flex">
             <span>태그</span>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="'#'을 포함하여 태그를 입력하세요">
+            <input type="email" class="form-control" id="tag" placeholder="'#'을 포함하여 태그를 입력하세요">
         </div>
     </div>
 
-    <div class="mb-3 gray">
-        <input class="form-control" type="file" id="formFile">
+    <div class="mb-3 flex">
+        <span>이미지</span>
+        <input class="form-control gray" accept="image/*" type="file" id="formFile">
     </div>
 
     <div class="form-floating flex">
-    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+    <textarea class="form-control" placeholder="Leave a comment here" id="main"
               style="height: 100px"></textarea>
-        <label for="floatingTextarea2" class="gray">내용을 입력하세요</label>
+        <label class="gray">내용을 입력하세요</label>
     </div>
     <div class="mybtn">
         <button type="button" class="btn btn-dark" onclick="amend()">수정하기</button>
