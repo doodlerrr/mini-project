@@ -15,21 +15,22 @@
     <title>registration</title>
 </head>
 <script>
-    const tag = $('#tag').val()
-    // let file = $('#file').val()
-    // let title = $('#title').val()
-    // let main = $('#main').val()
     function registration() {
+        let file = $('#file').val()
+        let title = $('#title').val()
+        let main = $('#main').val()
+        let tag = $('#tag').val()
+
         if (tag.includes('#') === true) {
             alert('#포함 o');
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/registration",
-        //     data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file},
-        //     success: function (response) {
-        //         console.log(response['msg'])
-        //     }
-        //  })
+        $.ajax({
+            type: "POST",
+            url: "/registration",
+            data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file},
+            success: function (response) {
+                console.log(response['msg'])
+            }
+         })
         } else {
             alert('#를 입력해 주세요');
         }
