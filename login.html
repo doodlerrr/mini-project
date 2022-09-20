@@ -3,7 +3,7 @@
     <head>
 
         <!-- Webpage Title -->
-        <title>Log Ingit</title>
+        <title>Login</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -25,27 +25,34 @@
         }
 
         .button.is-sparta {
-                            background-color: #34e852;
+                            background-color: #33E852;
                             border-color: transparent;
                             color: #fff !important;
                         }
 
 .button.is-sparta.is-outlined {
                                 background-color: transparent;
-                                border-color: #34e852;
-                                color: #34e852 !important;
+                                border-color: #33E852;
+                                color: #33E852 !important;
                             }
 
-.help {
-            color: gray;
+        .navbar-menu{
+                        background-color: #33E852;
+                        display: flex;
+                        height: 100px;
+
+                        font-size: 60px;
         }
+
+
         </style>
 
 
         <script>
-            // {% if msg %}
-            //     alert("{{ msg }}")
-            // {% endif %}
+        //로그인 할때 아이디값과 비번을 보내서 db에 저장된 값과 일치하는게 있는지 찾고 일치하는게 있으면 메인페이지로 이동
+        //없으면 오류 창 띄우기
+
+
             function sign_in() {
     let username = $("#input-username").val()
     let password = $("#input-password").val()
@@ -75,27 +82,32 @@
         success: function (response) {
             if (response['result'] == 'success') {
                 $.cookie('mytoken', response['token'], {path: '/'});
-                window.location.replace("/")
+                window.location.href="/main";
             } else {
-                alert(response['msg'])
+               alert(response['msg'])
+
             }
         }
     });
 }
 
 
-
-
-         //회원 가입 클릭시 회원가입 페이지로 이동 아직 미구현 오류남
-            function to_regis(){
-                window.location.href="/regisration.html"
-            }
         </script>
 
     </head>
     <body>
+    <section>
+      <div id="navbarBasicExample" class="navbar-menu ">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                 낭만고양이
+             </a>
+            </div>
+      </div>
+    </section>
 
-    <section class="section">
+
+    <section class="section is-half">
     <div class="container">
         <div class="box" style="max-width: 480px;margin:auto">
             <article class="media">
@@ -130,13 +142,12 @@
                         <h4 class="mb-3">아직 회원이 아니라면</h4>
                         <nav class="level is-mobile">
 
-                            <a class="level-item button is-sparta is-outlined"
-                                    id="sign_up" onclick="to_regis">
+                            <button class="level-item button is-sparta is-outlined"
+                                    id="sign_up" onclick="location.href='/Membership'">
                                 회원가입하기
-                            </a>
+                            </button>
                         </nav>
                     </div>
-
 
 
                 </div>
