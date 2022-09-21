@@ -31,7 +31,7 @@ def login():
 
 @app.route('/membership')
 def membership():
-    return render_template('membershtp.html')
+    return render_template('membership.html')
 
 
 @app.route('/membership/login', methods=['POST'])
