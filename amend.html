@@ -16,42 +16,41 @@
     <title>amend</title>
 </head>
 <script>
-    const fileInput = document.getElementById("fileUpload");
-    // 또는 const fileInput = $("#fileUpload").get(0);
-
-    fileInput.onchange = () => {
-        const selectedFile = fileInput.files[0];
-        console.log(selectedFile);
-    };
     function amend() {
-        let file = $('#formFile').val()
+        let url = $('#url').val()
         let title = $('#title').val()
         let main = $('#main').val()
         let tag = $('#tag').val()
-        $.ajax({
-            type: "POST",
-            url: "/amend",
-            data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file} ,
-            success: function (response) {
-                console.log(response['msg'])
-            }
-        })
+
+        if (tag.includes('#') === true) {
+            $.ajax({
+                type: "POST",
+                url: "/registration",
+                data: {'title': title, 'main': main, 'tag': tag, 'url': url},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
+        } else {
+            alert('태그란에 #를 포함하여 입력해 주세요');
+        }
     }
 </script>
 <style>
     * {
-            font-family: 'Gamja Flower', cursive;
-        }
+        font-family: 'Gamja Flower', cursive;
+    }
 
     body {
         background-color: rgba(0, 0, 0, 0.1);
     }
+
     .wrap {
         max-width: 1000px;
         width: 95%;
         height: 900px;
 
-        padding-top: 300px;
+        padding-top: 200px;
         margin: 20px auto 0 auto;
     }
 
@@ -80,8 +79,34 @@
         white-space: nowrap;
         margin-right: 10px;
     }
+
+    .navbar-menu {
+            background-color: #33E852;
+            display: flex;
+            height: 100px;
+        }
+
+    .navbar-item {
+        font-size: 60px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .navbar-item:hover {
+        color: white;
+    }
+
 </style>
 <body>
+<section>
+    <div id="navbarBasicExample" class="navbar-menu ">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/main">
+                낭만고양이
+            </a>
+        </div>
+    </div>
+</section>
 <div class="wrap">
     <div class="mb-3">
         <div class="flex">
@@ -97,9 +122,11 @@
         </div>
     </div>
 
-    <div class="mb-3 flex">
-        <span>이미지</span>
-        <input class="form-control gray" accept="image/*" type="file" id="formFile">
+    <div class="mb-3">
+        <div class="flex">
+            <span>이미지</span>
+            <input type="email" class="form-control" id="url" placeholder="이미지 URL주소를 입력해주세요" accept="image/*">
+        </div>
     </div>
 
     <div class="form-floating flex">
@@ -108,7 +135,7 @@
         <label class="gray">내용을 입력하세요</label>
     </div>
     <div class="mybtn">
-        <button type="button" class="btn btn-dark" onclick="amend()">수정하기</button>
+        <button type="button" class="btn btn-dark" onclick="amend(); location.href = '/main'">수정하기</button>
     </div>
 </div>
 </body>
