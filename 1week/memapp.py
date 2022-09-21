@@ -4,6 +4,7 @@ app = Flask(__name__)
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.sojhuso.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
+
 import hashlib
 
 
@@ -11,9 +12,8 @@ import hashlib
 def home():
         return render_template('membershtp.html')
 
-# [회원가입 API]
-# id, pw, nickname을 받아서, mongoDB에 저장합니다.
-# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
+# [아이디 중복검사 API]
+# id 중복검사및 유효성 검사를 합니다.
 
 @app.route('/membership/check_dup', methods=['POST'])
 def check_dup():
@@ -21,6 +21,9 @@ def check_dup():
     exists = bool(db.membership.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
+# [회원가입 API]
+# id, pw, name을 받아서, mongoDB에 저장합니다.
+# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 
 @app.route('/membership/save', methods=['POST'])
 def sign_up():
