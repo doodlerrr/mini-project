@@ -1,16 +1,59 @@
 from flask import Flask, render_template, jsonify, request
+
 app = Flask(__name__)
 
+import jwt
+
+import datetime
+
+from datetime import datetime, timedelta
+
 from pymongo import MongoClient
+
+app = Flask(__name__)
+
 client = MongoClient('mongodb+srv://test:sparta@cluster0.sojhuso.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
 import hashlib
 
+SECRET_KEY = 'SPARTA'
+
 
 @app.route('/')
 def home():
-        return render_template('membershtp.html')
+        return render_template('main_copy.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/membership')
+def membership():
+    return render_template('membershtp.html')
+
+
+@app.route('/membership/login', methods=['POST'])
+def sign_in():
+    # 로그인
+    username_receive = request.form['username_give']
+    password_receive = request.form['password_give']
+
+    pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.membership.find_one({'username': username_receive, 'password': pw_hash})
+
+    if result is not None:
+        payload = {
+            'id': username_receive,
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 # [아이디 중복검사 API]
 # id 중복검사및 유효성 검사를 합니다.
@@ -20,6 +63,7 @@ def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.membership.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
+
 
 # [회원가입 API]
 # id, pw, name을 받아서, mongoDB에 저장합니다.
@@ -35,8 +79,8 @@ def sign_up():
 
     doc = {
         "username": username_receive,  # 아이디
-        "password": password_hash,     # 비밀번호
-        "name": name_receive          # 이름
+        "password": password_hash,  # 비밀번호
+        "name": name_receive  # 이름
     }
     db.membership.insert_one(doc)
 
