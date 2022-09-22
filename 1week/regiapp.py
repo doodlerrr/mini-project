@@ -11,7 +11,7 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('registration.html')
 
 @app.route('/registration', methods=['POST'])
 def test_post():
