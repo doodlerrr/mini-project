@@ -43,6 +43,11 @@
 
                         font-size: 60px;
         }
+        input:checked + label svg {
+              fill: black;
+              -webkit-animation: heartButton 1s;
+                    animation: heartButton 1s;
+          }
 
 
         </style>
@@ -99,9 +104,7 @@
     <section>
       <div id="navbarBasicExample" class="navbar-menu ">
             <div class="navbar-brand">
-                <a class="navbar-item" href="">
-                 낭만고양이
-                </a>
+                <a class="navbar-item" href="">낭만고양이</a>
             </div>
       </div>
     </section>
@@ -120,23 +123,18 @@
                             </div>
                         </div>
 
-
                         <div class="field">
                             <div class="control has-icons-left">
                                 <input id="input-password" class="input" type="password" placeholder="비밀번호">
                                 <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                             </div>
-
                         </div>
-
-
                     </div>
                     <div id="div-sign-in-or-up" class="has-text-centered">
                         <nav class="level is-mobile">
                             <button class="level-item button is-sparta" onclick="sign_in()">
                                 로그인
                             </button>
-
                         </nav>
                         <hr>
                         <h4 class="mb-3">아직 회원이 아니라면</h4>
@@ -148,13 +146,10 @@
                             </button>
                         </nav>
                     </div>
-
-
                 </div>
             </article>
         </div>
-
     </div>
-</section>
+    </section>
     </body>
 </html>

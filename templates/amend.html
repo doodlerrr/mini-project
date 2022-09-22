@@ -1,3 +1,4 @@
+<!--amend.html-->
 <!doctype html>
 <html lang="en">
 
@@ -11,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-
     <title>amend</title>
 </head>
 <script>
@@ -22,19 +22,24 @@
         const selectedFile = fileInput.files[0];
         console.log(selectedFile);
     };
-    function amend() {
-        let file = $('#formFile').val()
+        function amend() {
+        let url = $('#url').val()
         let title = $('#title').val()
         let main = $('#main').val()
         let tag = $('#tag').val()
-        $.ajax({
-            type: "POST",
-            url: "/amend",
-            data: {'title' : title, 'main' : main, 'tag' : tag, 'file' : file} ,
-            success: function (response) {
-                console.log(response['msg'])
-            }
-        })
+
+        if (tag.includes('#') === true) {
+            $.ajax({
+                type: "POST",
+                url: "/registration",
+                data: {'title': title, 'main': main, 'tag': tag, 'url': url},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
+        } else {
+            alert('태그란에 #를 입력해 주세요');
+        }
     }
 </script>
 <style>
@@ -77,35 +82,42 @@
     }
 </style>
 <body>
-<div class="wrap">
-    <div class="mb-3">
-        <div class="flex">
-            <span>제목</span>
-            <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}");
+        </script>
+    {% endif%}
+    {% endwith %}
+
+    <form name="form" method="POST" action="/amend/{{data._id}}">
+        <div class="wrap">
+            <div class="mb-3">
+                <div class="flex">
+                    <span>제목</span>
+                    <input type="text" class="form-control" id="title" name="title" value="{{data.title}}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="flex">
+                    <span>태그</span>
+                    <input type="text" class="form-control" id="tag" placeholder="'#'을 포함하여 태그를 수정해주세요" name="tag" value="{{data.tag}}">
+                </div>
+            </div>
+            <div class="mb-3 flex">
+                <span>이미지</span>
+                <input type="text" placeholder="수정할 이미지 URL주소를 입력해주세요" class="form-control gray" id="formFile" name="url" value="{{data.url}}">
+            </div>
+            <div class="form-floating flex">
+                <textarea class="form-control" placeholder="Leave a comment here" id="main" style="height: 100px" name="contents">{{data.contents}}</textarea>
+                <label class="gray">내용을 수정해주세요</label>
+            </div>
+
+            <div class="mybtn">
+                <input type="submit" class="btn btn-dark" value="수정하기" onclick="location.herf='/main'">
+            </div>
         </div>
-    </div>
-
-    <div class="mb-3">
-        <div class="flex">
-            <span>태그</span>
-            <input type="email" class="form-control" id="tag" placeholder="'#'을 포함하여 태그를 입력하세요">
-        </div>
-    </div>
-
-    <div class="mb-3 flex">
-        <span>이미지</span>
-        <input class="form-control gray" accept="image/*" type="file" id="formFile">
-    </div>
-
-    <div class="form-floating flex">
-    <textarea class="form-control" placeholder="Leave a comment here" id="main"
-              style="height: 100px"></textarea>
-        <label class="gray">내용을 입력하세요</label>
-    </div>
-    <div class="mybtn">
-        <button type="button" class="btn btn-dark" onclick="amend()">수정하기</button>
-    </div>
-</div>
+    </form>
 </body>
 
 </html>
