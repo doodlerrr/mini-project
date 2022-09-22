@@ -1,0 +1,275 @@
+/* stylelint-disable selector-list-comma-newline-after */
+* {
+            font-family: 'Gamja Flower', cursive;
+        }
+
+.wrap {
+    margin: 0 20px;
+}
+.title {
+    background-color: #33E852;
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: white;
+    font-size: 3rem;
+}
+
+.title > span {
+    text-shadow: #727272;
+}
+
+.title > span {
+    margin-left: 10px;
+}
+.search-area {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    margin: 10px;
+    padding-right: 20px;
+}
+
+.flex-react {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-react > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-react:last-child {
+    margin-right: 15px;
+}
+
+svg {
+    margin-right: 20px;
+}
+
+#re {
+    height: 100px;
+    margin: 0 auto;
+}
+
+#re > div {
+    width: 100%;
+}
+
+#re > button {
+    margin-left: 20px;
+}
+
+.react-area {
+    margin: 10px auto;
+}
+
+.content {
+    width: 900px;
+    margin: 30px auto;
+}
+
+.content:first-child {
+    margin: auto;
+}
+
+.content-align {
+   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#re {
+    max-width: 1200px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+}
+
+.blog-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+    font-size: 2.25rem;
+}
+
+.blog-header-logo:hover {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .display-4 {
+        font-size: 3rem;
+    }
+}
+
+.flex-auto {
+    flex: 0 0 auto;
+}
+
+.h-250 {
+    height: 250px;
+}
+
+@media (min-width: 768px) {
+    .h-md-250 {
+        height: 250px;
+    }
+}
+
+/* Pagination */
+.blog-pagination {
+    margin-bottom: 4rem;
+}
+
+/*
+ * Blog posts
+ */
+.blog-post {
+    margin-bottom: 4rem;
+}
+
+.blog-post-title {
+    font-size: 2.5rem;
+}
+
+.blog-post-meta {
+    margin-bottom: 1.25rem;
+    color: #727272;
+}
+
+/*
+ * Footer
+ */
+.blog-footer {
+    padding: 2.5rem 0;
+    color: #727272;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.blog-footer p:last-child {
+    margin-bottom: 0;
+}
+
+/* stylelint-disable selector-list-comma-newline-after */
+
+.blog-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+    font-family: Amiri, Georgia, "Times New Roman", serif;
+    font-size: 2.25rem;
+}
+
+.blog-header-logo:hover {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Amiri, Georgia, "Times New Roman", serif;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .display-4 {
+        font-size: 3rem;
+    }
+}
+
+.flex-auto {
+    flex: 0 0 auto;
+}
+
+.h-250 {
+    height: 250px;
+}
+
+@media (min-width: 768px) {
+    .h-md-250 {
+        height: 250px;
+    }
+}
+
+/* Pagination */
+.blog-pagination {
+    margin-bottom: 4rem;
+}
+
+/*
+ * Blog posts
+ */
+.blog-post {
+    margin-bottom: 4rem;
+}
+
+.blog-post-title {
+    font-size: 2.5rem;
+}
+
+.blog-post-meta {
+    margin-bottom: 1.25rem;
+    color: #727272;
+}
+
+/*
+ * Footer
+ */
+.blog-footer {
+    padding: 2.5rem 0;
+    color: #727272;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.blog-footer p:last-child {
+    margin-bottom: 0;
+}
+
+.mybox {
+    width: 95%;
+    max-width: 700px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px lightblue;
+    margin: 20px auto;
+}
+
+.mybucket {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

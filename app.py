@@ -67,40 +67,40 @@ def write():
 
 
 # 회원가입
-@app.route("/signup", methods=["GET","POST"])
-def signup():
-    if request.method == "POST":
-        name = request.form.get("name", type=str)
-        email = request.form.get("email", type=str)
-        password = request.form.get("password", type=str)
-        re_password = request.form.get("re_password", type=str)
-
-        if name == "" or email == "" or password == "" or re_password == "":
-            flash("입력되지 않은 값이 있습니다.")
-            return render_template('signup.html')
-
-        if password != re_password:
-            flash('비밀번호가 일치하지 않습니다.')
-            return render_template('signup.html')
-
-        members = db.members
-        count = members.count_documents({"email": email})
-        print(count)
-        if count > 0:
-            flash("중복된 이메일 주소입니다.")
-            return render_template("signup.html")
-
-        info = {
-            "name": name,
-            "email": email,
-            "password": password,
-            "re_password": re_password
-        }
-        members.insert_one(info)
-        flash('성공적으로 가입되었습니다.')
-        return render_template("login.html")
-    else:
-        return render_template("signup.html")
+# @app.route("/signup", methods=["GET","POST"])
+# def signup():
+#     if request.method == "POST":
+#         name = request.form.get("name", type=str)
+#         email = request.form.get("email", type=str)
+#         password = request.form.get("password", type=str)
+#         re_password = request.form.get("re_password", type=str)
+#
+#         if name == "" or email == "" or password == "" or re_password == "":
+#             flash("입력되지 않은 값이 있습니다.")
+#             return render_template('signup.html')
+#
+#         if password != re_password:
+#             flash('비밀번호가 일치하지 않습니다.')
+#             return render_template('signup.html')
+#
+#         members = db.members
+#         count = members.count_documents({"email": email})
+#         print(count)
+#         if count > 0:
+#             flash("중복된 이메일 주소입니다.")
+#             return render_template("signup.html")
+#
+#         info = {
+#             "name": name,
+#             "email": email,
+#             "password": password,
+#             "re_password": re_password
+#         }
+#         members.insert_one(info)
+#         flash('성공적으로 가입되었습니다.')
+#         return render_template("login.html")
+#     else:
+#         return render_template("signup.html")
 
 # 글 조회
 @app.route("/get/<idx>")
