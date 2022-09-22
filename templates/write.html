@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     <!-- 구글 폰트 링크 -->
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -34,6 +37,9 @@
     }
 </script>
 <style>
+    *{
+        font-family: 'Gamja Flower', cursive;
+    }
     body {
         background-color: rgba(0, 0, 0, 0.1);
     }
@@ -72,8 +78,23 @@
         white-space: nowrap;
         margin-right: 10px;
     }
+    .navbar-menu{
+        font-family: 'Gamja Flower', cursive;
+        background-color: #34e852;
+        display: flex;
+        height: 100px;
+    }
 </style>
 <body>
+<section>
+      <div id="navbarBasicExample" class="navbar-menu ">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/" style="font-size: 60px;text-decoration-line: none">
+                 낭만고양이
+                </a>
+            </div>
+      </div>
+</section>
 <div class="wrap">
     <form action="/write" method="post">
         <div class="mb-3">
@@ -100,7 +121,7 @@
             <label class="gray">내용을 입력하세요</label>
         </div>
         <div class="mybtn">
-            <input type="submit" class="btn btn-dark" onclick="location.herf='/main'">등록하기</input>
+            <input type="submit" class="btn btn-dark" onclick="location.herf='/main'" value="등록하기"></input>
         </div>
     </form>
 </div>
