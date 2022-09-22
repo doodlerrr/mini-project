@@ -1,0 +1,129 @@
+<!--메인 템플릿 입니다.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 구글 폰트 링크 -->
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <style>
+        *{
+            font-family: 'Gamja Flower', cursive;
+        }
+
+        .navbar-menu{
+            font-family: 'Gamja Flower', cursive;
+            background-color: #34e852;
+            display: flex;
+            height: 100px;
+        }
+        input:checked + label svg {
+            fill: black;
+          }
+    </style>
+</head>
+<body>
+
+ {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}"); // 리스트에 있는 맨 마지막 요소를 꺼낸다는 문법
+        </script>
+    {% endif%}
+ {% endwith %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<section>
+      <div id="navbarBasicExample" class="navbar-menu ">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/" style="font-size: 60px;text-decoration-line: none">
+                 낭만고양이
+                </a>
+            </div>
+      </div>
+</section>
+
+
+
+{% if session["name"]| length > 0 %}
+<h3>{{session["name"]}} 님 환영합니다.<a href="/logout">로그아웃</a></small></h3>
+{% else %}
+<h3>로그인을 해주세요<small><a href="/login">로그인</a></small></h3>
+{% endif%}
+
+<br>
+    <!--태그 기반의 검색어 기능-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <input type="text" name="keyword" id="keyword" value="" placeholder="검색어를 입력하세요" style="margin-left:5px">
+                <input type="button" value="검색">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5"><input type="Button" value="자랑하기" onclick="location.href='/write'" style="float:right;margin-right:5px"></div>
+        </div>
+    </div>
+
+    <!--여기를 누르면 글쓰기 기능으로 넘어감-->
+    <br><br>
+
+    {%if datas|length > 0%}
+    {%for data in datas%}
+    <!--본문 리스트(글쓰기 기능 구현하면 여기에 -->
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="col-md-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block">
+                            <img class="bd-placeholder-img" src="{{data.url}}" width="450" height="500">
+                        </div>
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary">written by {{session["name"]}}</strong>
+                            <h3 class="mb-0">{{data.title}}</h3>
+                            <div class="mb-1 text-muted">방금 전</div>
+                            <p class="card-text mb-auto">{{data.contents}}</p>
+                            <a href="{{url_for('get', idx=data._id)}}" class="stretched-link">자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 세부 기능 -->
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col">
+                    <input type="checkbox" id="{{data['_id']}}" name="click" value="{{data['_id']}}" style="display:none;">
+                        <label for="{{data['_id']}}" class="container" value="{{data['_id']}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </label>
+                </div>
+                <div class="col">{{data.tag}}</div>
+                <!--구버전 <div class="col"><input type="Button" value="수정하기" onclick="location.href='/get?idx={{data._id}}'"></div>-->
+                <div class="col"><input type="Button" value="수정하기" onclick="location.href='/get/{{data._id}}'"></div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+    </div>
+    {%endfor%}
+    {%endif%}
+
+</body>
+</html>

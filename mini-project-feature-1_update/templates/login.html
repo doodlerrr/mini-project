@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <!-- Webpage Title -->
+        <title>Log Ingit</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bulma CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <!-- Font Awesome CSS -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- 구글 폰트 링크 -->
+        <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+        <style>
+        *{
+            font-family: 'Gamja Flower', cursive;
+        }
+
+        .button.is-sparta {
+            background-color: #34e852;
+            border-color: transparent;
+            color: #fff !important;
+        }
+
+        .button.is-sparta.is-outlined {
+            background-color: transparent;
+            border-color: #34e852;
+            color: #34e852 !important;
+        }
+
+         .navbar-menu{
+             background-color: #34e852;
+             display: flex;
+             height: 100px;
+             font-size: 60px;
+             text-decoration: none;
+        }
+
+        </style>
+
+
+        <script>
+            // {% if msg %}
+            //     alert("{{ msg }}")
+            // {% endif %}
+            function sign_in() {
+            let username = $("#input-username").val()
+            let password = $("#input-password").val()
+
+            if (username == "") {
+                $("#help-id-login").text("아이디를 입력해주세요.")
+                $("#input-username").focus()
+            return;
+            } else {
+                $("#help-id-login").text("")
+            }
+
+            if (password == "") {
+                $("#help-password-login").text("비밀번호를 입력해주세요.")
+                $("#input-password").focus()
+                return;
+            } else {
+                $("#help-password-login").text("")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password
+                },
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    $.cookie('mytoken', response['token'], {path: '/'});
+                    window.location.replace("/")
+                } else {
+                    alert(response['msg'])
+                }
+            }
+        });
+            }
+        </script>
+    </head>
+    <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}"); // 리스트에 있는 맨 마지막 요소를 꺼낸다는 문법
+        </script>
+    {% endif%}
+    {% endwith %}
+    <section>
+      <div id="navbarBasicExample" class="navbar-menu ">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                 낭만고양이
+                </a>
+            </div>
+      </div>
+    </section>
+
+    <form action="/login" method="POST">
+        <section class="section">
+            <div class="container">
+                <div class="box" style="max-width: 480px;margin:auto">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <div class="field has-addons">
+                                    <div class="control has-icons-left" style="width:100%">
+                                        <input id="idname" class="input" type="text" placeholder="아이디" name="email">
+                                        <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input id="input-password" class="input" type="password" placeholder="비밀번호" name="pass">
+                                        <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="div-sign-in-or-up" class="has-text-centered">
+                                <nav class="level is-mobile">
+                                    <input class="level-item button is-sparta" type="submit" value="로그인">
+                                </nav>
+                                <hr>
+                                <h4 class="mb-3">아직 회원이 아니라면</h4>
+                                <nav class="level is-mobile">
+                                    <a class="level-item button is-sparta is-outlined" id="sign_up" href="/membership">회원가입하기</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </form>
+    </body>
+</html>

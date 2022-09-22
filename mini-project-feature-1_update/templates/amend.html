@@ -1,0 +1,123 @@
+<!--amend.html-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>amend</title>
+</head>
+<script>
+    const fileInput = document.getElementById("fileUpload");
+    // 또는 const fileInput = $("#fileUpload").get(0);
+
+    fileInput.onchange = () => {
+        const selectedFile = fileInput.files[0];
+        console.log(selectedFile);
+    };
+        function amend() {
+        let url = $('#url').val()
+        let title = $('#title').val()
+        let main = $('#main').val()
+        let tag = $('#tag').val()
+
+        if (tag.includes('#') === true) {
+            $.ajax({
+                type: "POST",
+                url: "/registration",
+                data: {'title': title, 'main': main, 'tag': tag, 'url': url},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
+        } else {
+            alert('태그란에 #를 입력해 주세요');
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .wrap {
+        max-width: 1000px;
+        width: 95%;
+        height: 900px;
+
+        padding-top: 300px;
+        margin: 20px auto 0 auto;
+    }
+
+    .mybtn {
+        margin: 50px auto 0 auto;
+        width: 100px;
+    }
+
+    .mybtn > button {
+        width: 100px;
+        height: 50px;
+    }
+
+    .gray {
+        color: gray;
+    }
+
+    .flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex > span {
+        white-space: nowrap;
+        margin-right: 10px;
+    }
+</style>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}");
+        </script>
+    {% endif%}
+    {% endwith %}
+
+    <form name="form" method="POST" action="/amend/{{data._id}}">
+        <div class="wrap">
+            <div class="mb-3">
+                <div class="flex">
+                    <span>제목</span>
+                    <input type="text" class="form-control" id="title" name="title" value="{{data.title}}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="flex">
+                    <span>태그</span>
+                    <input type="text" class="form-control" id="tag" placeholder="'#'을 포함하여 태그를 수정해주세요" name="tag" value="{{data.tag}}">
+                </div>
+            </div>
+            <div class="mb-3 flex">
+                <span>이미지</span>
+                <input type="text" placeholder="수정할 이미지 URL주소를 입력해주세요" class="form-control gray" id="formFile" name="url" value="{{data.url}}">
+            </div>
+            <div class="form-floating flex">
+                <textarea class="form-control" placeholder="Leave a comment here" id="main" style="height: 100px" name="contents">{{data.contents}}</textarea>
+                <label class="gray">내용을 수정해주세요</label>
+            </div>
+
+            <div class="mybtn">
+                <input type="submit" class="btn btn-dark" value="수정하기" onclick="location.herf='/main'">
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
