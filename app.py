@@ -48,7 +48,6 @@ def write():
     else:
         return render_template("write.html")
 
-
 # 회원가입
 @app.route("/signup", methods=["GET","POST"])
 def signup():
@@ -98,6 +97,7 @@ def get(idx):
                 "name": data.get("name"),
                 "title": data.get("title"),
                 "contents": data.get("contents"),
+                "url":data.get("url"),
                 "writer_id": data.get("writer_id", "")
             }
 
@@ -107,7 +107,7 @@ def get(idx):
             )
     return abort(404)
 
-#수정
+# 수정
 @app.route("/amend/<idx>", methods=['GET','POST'])
 def amend(idx):
     if request.method == "GET":
@@ -145,6 +145,7 @@ def amend(idx):
             flash("수정 권한이 없습니다.")
             return redirect(url_for("main"))
 
+# 삭제
 # 로그인
 @app.route("/login", methods=["GET", "POST"])
 def member_login():
@@ -173,7 +174,7 @@ def member_login():
     else:
         return render_template("login.html")
 
-#로그아웃
+# 로그아웃
 @app.route('/logout')
 def logout():
     session.pop('name', None)
